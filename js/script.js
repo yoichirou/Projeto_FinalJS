@@ -14,7 +14,7 @@ let inputtarefa = document.getElementById("tarefa")
 const listatarefa = document.getElementById("lista-tarefas")
 document.body.classList = localStorage.getItem('theme')
 
-
+// Váriaveis dos contadores.
 let ativas = 0;
 let conluidas = 0;
 
@@ -28,7 +28,7 @@ function login() {
 
     if (localStorage.getItem('user')) {
         loginDiv.textContent = 'Olá ' + localStorage.getItem('user') + '!';
-        
+
     }
     else {
         let myUser = prompt('Qual é o seu nome?')
@@ -37,10 +37,10 @@ function login() {
         localStorage.setItem('user', myUser);
 
         loginDiv.textContent = 'Olá ' + localStorage.getItem('user') + '!';
-        
+
     }
 
-    
+
 }
 
 //************************************** */
@@ -71,7 +71,7 @@ function obterTempoLisboa() {
         .then(d => {
             const temp = d.hourly.temperature_2m[0];
             document.getElementById("weather").textContent = `📍 Lisboa: ${temp}°C`;
-        })        
+        })
 }
 //executa a função do weather mal a pagina corre!
 obterTempoLisboa();
@@ -89,155 +89,153 @@ if (myForm) {
         const dataFromFrom = new FormData(this);
 
         if (dataFromFrom.get('tarefa') !== '') // tarefa nome do input do formulario
-        {   
+        {
             guardaredicao.disabled = false;
-            //criei o elemento
+            // Criei o elemento
             let mydiv = document.createElement('div');
-            // Adicionei elemento a tarefa
+            // Adicionei o conteudo do form ao elemento.
             mydiv.textContent = dataFromFrom.get('tarefa');
-            mydiv.classList.add('tarefa-item'); 
+            // Adicionei 2 classes a DIV para o filtro.
+            mydiv.classList.add('tarefa-item');
             mydiv.classList.add('ativas');
-            
-            // BOTÃO EDITAR
+
+            //***************** */
+            //* BOTÃO EDITAR
+            //***************** */
+
+            // Criei o elemento
             let editar = document.createElement('button');
+            // Adicionei um atributo ao botão com o conteudo do input.
             editar.setAttribute('datatitle', dataFromFrom.get('tarefa'));
-            editar.textContent = 'Editar';       
-            editar.addEventListener('click', function(){            
-                inputtarefa.value = this.getAttribute('datatitle')  
-                mydiv.remove() 
-                if(mydiv.classList.contains('ativas'))          
-                    {
-                        if (ativas > 0) {
-                        ativas--; 
-                        }
-                        updatecontador()
-                    }     
-                else
-                    {
-                        if (conluidas > 0) {
-                        conluidas--; 
-                        }
-                        updatecontador()
-                    }                              
+            // Nome do Botão
+            editar.textContent = 'Editar';
+            // Função do Botão "Editar"     
+            editar.addEventListener('click', function () {
+                // Inseri no input do form a informação do DATATITLE do botão         
+                inputtarefa.value = this.getAttribute('datatitle')
+                // Removo a div para alterações.
+                mydiv.remove()
+                // Faco verificações em relação aos contadores 
+                if (mydiv.classList.contains('ativas')) {
+                    if (ativas > 0) {
+                        ativas--;
+                    }
+                    updatecontador()
+                }
+                else {
+                    if (conluidas > 0) {
+                        conluidas--;
+                    }
+                    updatecontador()
+                }
             });
 
             // BOTAO DO GUARDAR EDICAO
-            guardaredicao.addEventListener('click', function(){               
+            // Guarda a informação que esta no botão novamente para a div.
+            guardaredicao.addEventListener('click', function () {
                 mydiv.textContent = inputtarefa.value;
             })
 
-            // CHECKBOX "CONCLUIDO"            
+            // CHECKBOX "CONCLUIDO"
+            //Criei elemento (input = checkbox)            
             let concluido = document.createElement('input');
-            concluido.type = 'checkbox'; 
-                concluido.addEventListener('click', function(){  
-
-                    if(concluido.checked)
-                    {                    
-                        conluidas++;                   
-                        if (ativas > 0) {
-                        ativas--; 
-                        }
-                        console.log("contador checked: " + ativas)
-                        console.log("concluida checked: " + conluidas) 
-                        mydiv.classList.replace("ativas","concluida");
-                        updatecontador()                        
+            concluido.type = 'checkbox';
+            // Evento do botão
+            concluido.addEventListener('click', function () {
+                //Verifica que a checkbox esta "selecionada"
+                if (concluido.checked) {
+                    conluidas++;
+                    if (ativas > 0) {
+                        ativas--;
                     }
-                    else  
-                    {
-                        ativas++;                        
-                        if (conluidas > 0) {
-                        conluidas--; 
-                        }
-                        console.log("contador unchecked: " + ativas)
-                        console.log("concluida unchecked: " + conluidas)
-                        mydiv.classList.replace("concluida","ativas");
-                        updatecontador() 
-                    }
-                    
-                })
-            
-            // BOTAO REMOVER
-            let remover = document.createElement('button');
-            remover.textContent = 'Remover';       
-                remover.addEventListener('click', function(){
-                mydiv.remove()                                
-                if (ativas > 0) {
-                        ativas--; 
-                        }
-                if (conluidas > 0) {
-                        conluidas--; 
-                        }
-                updatecontador()                
-                })          
-
-             // FILTRO DAS TAREFAS               
-            filtro.addEventListener('change',function(e){
-                const valorSelecionado = e.target.value;       
-
-                const todasAsTarefas = listatarefa.querySelectorAll('.tarefa-item');
-
-                todasAsTarefas.forEach(mydiv => {
-                    if(valorSelecionado == "ativo")
-                    {
-                        if (mydiv.classList.contains("ativas")) {
-                            mydiv.style.display = "flex";
-                        } else {
-                            mydiv.style.display = "none";
-                        }
-                    }
-                else if (valorSelecionado == "concluido" )
-                    {
-                        if (mydiv.classList.contains("concluida")) {
-                            mydiv.style.display = "flex";;
-                        } else {
-                            mydiv.style.display = "none";
-                        }
-                    } 
-                else
+                    mydiv.classList.replace("ativas", "concluida");
+                    updatecontador()
+                }
+                else  // Quando deixa de estar "selecionada"
                 {
-                    mydiv.style.display = "flex";;
+                    ativas++;
+                    if (conluidas > 0) {
+                        conluidas--;
+                    }
+                    mydiv.classList.replace("concluida", "ativas");
+                    updatecontador()
                 }
 
-            });
+            })
 
-    })
-
+            // BOTAO REMOVER
+            // Criei elemento "Botão"
+            let remover = document.createElement('button');
+            // Nome do botão
+            remover.textContent = 'Remover';
+            // Evento do botão
+            remover.addEventListener('click', function () {
+                mydiv.remove()
+                if (ativas > 0) {
+                    ativas--;
+                }
+                if (conluidas > 0) {
+                    conluidas--;
+                }
+                updatecontador()
+            })
 
             // Contador de Ativas sempre que add 1 Tarefa    
             ativas++;
             updatecontador()
-            
+
             //Sempre que add 1 tarefa adiciona ao UL (listatarefa)
             listatarefa.appendChild(mydiv);
+            // Adiciona td a div em cima.
             mydiv.appendChild(remover);
             mydiv.appendChild(editar);
-            mydiv.appendChild(concluido);            
+            mydiv.appendChild(concluido);
 
+            //Limpa o input value
             this.reset();
 
-           
-            
-        }         
+        }
 
     })
 
 }
 
+// FILTRO DAS TAREFAS               
+filtro.addEventListener('change', function (e) {
+    // Seleciona o valor que pretendemos (Todos, Ativos, Concluidos)
+    const valorSelecionado = e.target.value;
+    // Seleciona tudo q tenha aquela tag
+    const todasAsTarefas = listatarefa.querySelectorAll('.tarefa-item');
 
+    // loop para indentificar o que pretendemos
+    todasAsTarefas.forEach(mydiv => {
+        if (valorSelecionado == "ativo") {
+            if (mydiv.classList.contains("ativas")) {
+                mydiv.style.display = "flex";
+            } else {
+                mydiv.style.display = "none";
+            }
+        }
+        else if (valorSelecionado == "concluido") {
+            if (mydiv.classList.contains("concluida")) {
+                mydiv.style.display = "flex";;
+            } else {
+                mydiv.style.display = "none";
+            }
+        }
+        else {
+            mydiv.style.display = "flex";;
+        }
 
+    });
 
-function updatecontador()
-{
-    document.getElementById("ativas").textContent = ativas; 
-    document.getElementById("concluidas").textContent = conluidas;            
-    console.log("contador: " + ativas)
-    console.log("concluida: " + conluidas)
+})
+
+// Função para atualizar os contadores.
+function updatecontador() {
+    document.getElementById("ativas").textContent = ativas;
+    document.getElementById("concluidas").textContent = conluidas;    
 }
-
-
-    
-
-
 
 //************************************** */
 // Eventos para Botões

@@ -19,12 +19,13 @@
         <p id="weather"> 🌡️ a carregar...</p>
         <p id="time-hour"></p>        
     </div>
+    
     <div id="login-message"></div>
 
     <br><br>
     <h3>Contador de tarefas: </h3>
-    <p>Ativas : <span id="contador">0</span></p>
-    <p>Concluídas: <span id="ativa">0</span></p>
+    <p>Ativas : <span id="ativas">0</span></p>
+    <p>Concluídas: <span id="concluidas">0</span></p>
     <form id="tarefas">
         <input type="text" placeholder="Nome da tarefa" name="tarefa" id="tarefa">
         <br><br>
@@ -35,7 +36,12 @@
     <p id="mensagem" role="status"></p>
 
     <div class="tarefas">
-    <h2>Lista de Tarefas</h2>    
+    <h2>Lista de Tarefas</h2> 
+    <select id="select">
+        <option value="todos" selected>Todos</option>
+        <option value="ativo">Ativos</option>
+        <option value="concluido">Concluídos</option>
+    </select>    
     <ul id="lista-tarefas"></ul>  
     </div>
     

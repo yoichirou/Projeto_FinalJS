@@ -11,13 +11,25 @@
 </head>
 
 <body class="">
-    <div>
-        <button id="login">Login 🥸</button>
-        <button id="logout">Logout ❌</button>
-        <button id="theme">☀️🌙</button>
-        </select>
-        <p id="weather"> 🌡️ a carregar...</p>
-        <p id="time-hour"></p>        
+    <div class="top-bar">    
+        <div class="barra-esquerda">
+            <button id="login">Login 🥸</button>
+            <button id="logout">Logout ❌</button>
+            <button id="theme">☀️🌙</button>
+        </div>    
+            
+        <div class="barra-centro">
+            <select id="cidadeSelect" onchange="obterTempo()">
+                <option value="lisboa">Lisboa</option>
+                <option value="porto">Porto</option>
+                <option value="coimbra">Coimbra</option>
+            </select>
+            <div id="weather">A carregar...</div>
+        </div>    
+
+        <div class="barra-direita">
+            <p id="time-hour"></p>
+        </div>
     </div>
     
     <div id="login-message"></div>

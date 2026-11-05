@@ -1,18 +1,35 @@
-div {
+.top-bar {
     display: flex;
-    align-items: center; 
-    gap: 10px;          
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
-/* Empurra o parágrafo da hora totalmente para a direita */
-#time-hour {
-    margin-left: auto;
+/* O lado esquerdo e direito ficam com a mesma largura para equilibrar o centro */
+.barra-esquerda, .barra-direita {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1; /* Ocupa o espaço disponível de forma igual */
 }
 
-#weather{
-    margin-left: auto;
+/* Garante que a hora no lado direito fica alinhada à direita (opcional) */
+.barra-direita {
+    justify-content: flex-end; 
 }
 
+/* O bloco do centro alinha os seus próprios elementos e fica rigorosamente no meio */
+.barra-centro {
+    display: flex;
+    align-items: center;
+    gap: 12px;       /* Distância entre o seletor e o tempo */
+    flex: 1;
+    justify-content: center; /* Centra o conteúdo lá dentro */
+}
+
+.top-bar p {
+    margin: 0;
+}
 
 .day {
     background-color: white;

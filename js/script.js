@@ -35,7 +35,7 @@ function login() {
 
         //armazenar no localstorage
         localStorage.setItem('user', myUser);
-
+document.getElementById("weather").textContent
         loginDiv.textContent = 'Olá ' + localStorage.getItem('user') + '!';
 
     }
@@ -64,17 +64,41 @@ function changeMode() {
 //************************************** */
 //função do tempo
 //************************************** */
-function obterTempoLisboa() {
-    // Coordenadas fixas de Lisboa: latitude 38.7167, longitude -9.1333
-    fetch('https://api.open-meteo.com/v1/forecast?latitude=38.7251&longitude=-9.1498&hourly=temperature_2m&timezone=Europe%2FLondon')
+const cidades = {
+    porto: { lat: 41.1496, lon: -8.6109 },
+    lisboa: { lat: 38.7251, lon: -9.1498 },    
+    coimbra: { lat: 40.2033, lon: -8.4103 }
+};
+
+function obterTempo() {
+    // Obter a cidade selecionada no HTML
+    const select = document.getElementById("cidadeSelect");
+    const cidadeEscolhida = select.value;
+    
+    // Buscar as coordenadas correspondentes
+    const coords = cidades[cidadeEscolhida];
+    
+    // Nome formatado para mostrar no texto
+    const nomeCidade = select.options[select.selectedIndex].text;
+
+    // Fazer o fetch com as coordenadas dinâmicas
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&hourly=temperature_2m&timezone=Europe%2FLondon`;
+
+    document.getElementById("weather").textContent = `A carregar ${nomeCidade}...`;
+
+    fetch(url)
         .then(resposta => resposta.json())
         .then(d => {
             const temp = d.hourly.temperature_2m[0];
-            document.getElementById("weather").textContent = `📍 Lisboa: ${temp}°C`;
+            document.getElementById("weather").textContent = `📍 ${nomeCidade}: ${temp}°C`;
         })
+        .catch(erro => {
+            document.getElementById("weather").textContent = "Erro ao carregar a temperatura.";
+            console.error(erro);
+        });
 }
 //executa a função do weather mal a pagina corre!
-obterTempoLisboa();
+obterTempo();
 
 
 //************************************** */

@@ -29,6 +29,9 @@ function login() {
     if (localStorage.getItem('user')) {
         loginDiv.textContent = 'Olá ' + localStorage.getItem('user') + '!';
 
+        setTimeout(() => {
+            loginDiv.textContent = '';
+        }, 3000)
     }
     else {
         let myUser = prompt('Qual é o seu nome?')
@@ -38,6 +41,9 @@ function login() {
 document.getElementById("weather").textContent
         loginDiv.textContent = 'Olá ' + localStorage.getItem('user') + '!';
 
+        setTimeout(() => {
+            loginDiv.textContent = '';
+        }, 3000)
     }
 
 
@@ -152,13 +158,7 @@ if (myForm) {
                     }
                     updatecontador()
                 }
-            });
-
-            // BOTAO DO GUARDAR EDICAO
-            // Guarda a informação que esta no botão novamente para a div.
-            guardaredicao.addEventListener('click', function () {
-                mydiv.textContent = inputtarefa.value;
-            })
+            });            
 
             // CHECKBOX "CONCLUIDO"
             //Criei elemento (input = checkbox)            

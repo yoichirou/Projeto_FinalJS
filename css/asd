@@ -1,0 +1,27 @@
+for (let botao of botoesadd)
+{
+    botao.addEventListener('click', function(){       
+        const li = document.createElement("li");         
+
+        let listatarefas = document.getElementById("lista-tarefas")
+        listatarefas.appendChild(li)                    
+
+        let remover = document.createElement('button');
+        let editar = document.createElement('button');
+        remover.textContent = 'Remover';       
+        remover.addEventListener('click', function(){       
+            this.remove();                  
+        })
+        editar.textContent = 'Editar';
+        editar.addEventListener('click', function(){
+            let textoeditado = prompt('Nova tarefa:')
+            this.textContent = textoeditado;
+        })
+
+
+
+
+        li.appendChild(remover);        
+    })
+
+}

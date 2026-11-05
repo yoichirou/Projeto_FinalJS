@@ -1,0 +1,31 @@
+div {
+    display: flex;
+    align-items: center; 
+    gap: 10px;          
+}
+
+/* Empurra o parágrafo da hora totalmente para a direita */
+#time-hour {
+    margin-left: auto;
+}
+
+#weather{
+    margin-left: auto;
+}
+
+
+.day {
+    background-color: white;
+    color: black;
+}
+
+.night{
+    background-color: black;
+    color: white;
+}
+
+.tarefas {
+    display: flex;
+    flex-direction: column; /* Isto empilha os elementos na vertical (um em cima do outro) */
+    align-items: flex-start; /* Alinha tudo à esquerda */
+}

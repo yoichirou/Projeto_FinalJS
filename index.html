@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Final JavaScript</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/script.js" defer></script>
+
+</head>
+
+<body class="">
+    <div>
+        <button id="login">Login 🥸</button>
+        <button id="logout">Logout ❌</button>
+        <button id="theme">☀️🌙</button>
+        </select>
+        <p id="weather"> 🌡️ a carregar...</p>
+        <p id="time-hour"></p>        
+    </div>
+    <div id="login-message"></div>
+
+    <br><br>
+    <h3>Contador de tarefas: </h3>
+    <p>Ativas : <span id="contador">0</span></p>
+    <p>Concluídas: <span id="ativa">0</span></p>
+    <form id="tarefas">
+        <input type="text" placeholder="Nome da tarefa" name="tarefa" id="tarefa">
+        <br><br>
+        <button id="add">Adicionar Tarefa</button>
+        <button id="guardar" disabled>Guardar alterações</button>          
+    </form>
+
+    <p id="mensagem" role="status"></p>
+
+    <div class="tarefas">
+    <h2>Lista de Tarefas</h2>    
+    <ul id="lista-tarefas"></ul>  
+    </div>
+    
+
+</body>
+
+</html>

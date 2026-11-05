@@ -1,0 +1,94 @@
+Projeto Final 1: “Gestor de Tarefas Inteligente”
+	Sistema completo de gestão de tarefas com as seguintes funcionalidades:
+	Simulação login com dados de sessão (a partir do momento em que se autentica, aparece na app Olá Nome do User)
+	Adicionar tarefas via formulário    
+	Marcar tarefas como concluídas      
+	Editar e remover tarefas      
+	Contar tarefas ativas/concluídas    
+	Filtros (Todas / Ativas / Concluídas)     
+	Personalização de tema (claro/escuro) com armazenamento em local storage   
+	Mostra hora/data atual
+	Conectar com uma APi à vossa escolha e mostrar dados (por exemplo tempo)
+
+
+<button onclick="changeMode()"> ☀️🌙</button>
+    <button id="login">🥸</button>
+    <button id="logout">❌</button>
+
+function login()
+{
+
+    if(localStorage.getItem('user')){
+        alert('Olá ' + localStorage.getItem('user')+ '!')
+    }
+    else{
+        let myUser = prompt('Qual é o seu nome?') 
+
+        //armazenar no localstorage
+        localStorage.setItem('user', myUser);
+    }
+
+}
+
+if(logout){
+   logout.addEventListener('click',function(){
+    localStorage.removeItem('user');
+  })
+}
+
+if(loginbtn){
+loginbtn.addEventListener("click", () => login()); 
+
+function changeMode(){
+
+    if(document.body.classList.contains('day'))
+    {
+        document.body.classList.remove('day');
+        document.body.classList.add('night'); 
+    }
+    else
+    {
+        document.body.classList.remove('night');
+        document.body.classList.add('day');
+    }       
+
+}
+
+
+
+//Chamada por api - BOTAO ID CAT - MUDAR PARA TEMPO.
+document.getElementById('cat').addEventListener('click' ,function(){
+    fetch("https://catfact.ninja/fact")
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('cat-fact').innerText = data.fact;
+    })  
+})
+
+
+// FUNCAO PARA CONTROLAR FORMULARIO
+const myForm = document.getElementById("zoo") //zoo - nome do formulario
+
+
+if(myForm){
+    myForm.addEventListener('submit',function(e){ // submit e o que conecta ao botao
+        e.preventDefault();
+
+        const dataFromFrom = new FormData(this);
+        
+        if(dataFromFrom.get('animal') !== '') // animal nome do input do formulario
+
+        {
+            let myLi = document.createElement('li');
+            myLi.textContent = dataFromFrom.get('animal');
+            
+            zooAnimals.appendChild(myLi);
+
+            this.reset();
+        }
+        
+        console.log('aqui está o form');
+
+    })
+
+}
